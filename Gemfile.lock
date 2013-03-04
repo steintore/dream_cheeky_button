@@ -1,0 +1,12 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ruby-usb (0.2.1)
+    rubygems-bundler (1.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ruby-usb
+  rubygems-bundler
