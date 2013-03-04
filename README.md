@@ -1,6 +1,7 @@
-# dream_cheeky_button
+# Dream Cheeky Big Red Button 
 
-A gem for handling the Dream Cheeky Big Red Button.
+A gem for handling the Dream Cheeky Big Red Button.  (http://dreamcheeky.com/big-red-button)
+
 Based on code from https://github.com/derrick/dream_cheeky
 
 
