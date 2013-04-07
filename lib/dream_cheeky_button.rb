@@ -1,4 +1,4 @@
-require 'usb'
+require 'libusb'
 
 class DreamCheekyButton
 
@@ -55,9 +55,14 @@ class DreamCheekyButton
   end
 
   def find_device
-    USB.devices.find { |u|
-      u.idProduct == PRODUCT_ID && u.idVendor == VENDOR_ID
-    }
+    usb = LIBUSB::Context.new
+    device = usb.devices(:idVendor => VENDOR_ID, :idProduct => PRODUCT_ID).first
+    if device.nil? 
+      puts "Device not found" if device.nil?
+      return nil
+    end
+    puts "Device found: #{device}" 
+    device
   end
 
   def open_connection
@@ -68,9 +73,8 @@ class DreamCheekyButton
       @handle.usb_claim_interface(0)
 
       @open = true
-      return true
     rescue
-      return false
+      false
     end
   end
 
@@ -84,13 +88,13 @@ class DreamCheekyButton
 
 
   def init_loop
-    self.prior_state = current_state = read
+    self.prior_state = @current_state = read
     self.open_or_closed = DEPRESSED == prior_state ? OPEN : prior_state
   end
 
   def check_button
-    self.prior_state = current_state
-    self.current_state = read
+    self.prior_state = @current_state
+    @current_state = read
   end
 
   def open!
